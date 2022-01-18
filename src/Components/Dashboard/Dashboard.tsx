@@ -50,6 +50,15 @@ const Dashboard:React.FC <DashboardProps> = ({userName}) => {
     setCards([...arr])
   }
 
+  const removeDescription = (cardId:number) => {
+    const arr = cards.map((item) =>{
+      if (item.id === cardId) {
+        return {...item, description:''}
+      } else return item
+    })
+    setCards([...arr])
+  }
+
   const addComment = (text: string, cardId: number) => {
     const item: CommentType = {id: Date.now(), cardId, text}
     setComments([...comments, item])
@@ -86,7 +95,7 @@ const Dashboard:React.FC <DashboardProps> = ({userName}) => {
   return (
     <Container>
       {columns.map(column => 
-        <Column removeComment={removeComment} removeCard={removeCard} changeNameCard={changeNameCard} changeComment = {changeComment} comments = {comments} addComment = {addComment} changeDescription = {changeDescription} userName={userName} cards={cards} column={column} key={column.id} addCard={addCard}/>)}
+        <Column removeDescription ={removeDescription} removeComment={removeComment} removeCard={removeCard} changeNameCard={changeNameCard} changeComment = {changeComment} comments = {comments} addComment = {addComment} changeDescription = {changeDescription} userName={userName} cards={cards} column={column} key={column.id} addCard={addCard}/>)}
     </Container>
   )
 }

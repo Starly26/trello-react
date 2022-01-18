@@ -20,15 +20,15 @@ const CommentField:React.FC <CommentProps> = ({comment, changeComment, removeCom
   return (
     <Comment>
     {isVisibleChangeComment ?
-      <TextAreaField id={comment.id} placeName={comment.text} btnName='Сохранить' change={change} close={() => setIsVisibleChangeComment(false)}/>
-      :
-      <>
-      <CommentWrapper>
-        <p>{comment.text}</p> 
-      </CommentWrapper>
-      <button onClick={() => setIsVisibleChangeComment(true)}>Изменить</button>
-      <button onClick={() => removeComment(comment.id)}>Удалить</button>
-      </>
+        <TextAreaField id={comment.id} placeName={comment.text} btnName='Сохранить' change={change} close={() => setIsVisibleChangeComment(false)}/>
+    :
+        <>
+        <CommentWrapper>
+          <p>{comment.text}</p> 
+        </CommentWrapper>
+        <button onClick={() => setIsVisibleChangeComment(true)}>Изменить</button>
+        <button onClick={() => removeComment(comment.id)}>Удалить</button>
+        </>
     }
     
   </Comment>

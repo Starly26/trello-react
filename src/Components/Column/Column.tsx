@@ -17,10 +17,11 @@ type ColumnProps ={
   changeNameCard:(name:string, cardId:number) => void
   removeCard:(id:number) => void
   removeComment:(id:number) => void
+  removeDescription:(id:number) => void
 }
 
 
-const Column:React.FC <ColumnProps> = ({column, cards, userName, addCard, changeDescription, addComment, comments, changeComment, changeNameCard, removeCard, removeComment}) => {
+const Column:React.FC <ColumnProps> = ({column, cards, userName, addCard, changeDescription, addComment, comments, changeComment, changeNameCard, removeCard, removeComment, removeDescription}) => {
 
   const [columnName, setColumnName] = useState(column.name)
   const [isVisibleTextArea, setIsVisibleTextArea] = useState(false)
@@ -34,7 +35,7 @@ const Column:React.FC <ColumnProps> = ({column, cards, userName, addCard, change
       {
         cards.map((item) => {
           if (item.columnId === column.id) {
-            return <Card removeComment={removeComment} removeCard={removeCard} changeNameCard={changeNameCard} card ={item} userName = {userName} key ={item.id} columnName = {columnName} changeDescription = {changeDescription} comments = {comments} addComment = {addComment} changeComment={changeComment}/>
+            return <Card removeComment={removeComment} removeCard={removeCard} changeNameCard={changeNameCard} card ={item} userName = {userName} key ={item.id} columnName = {columnName} changeDescription = {changeDescription} comments = {comments} addComment = {addComment} changeComment = {changeComment} removeDescription = {removeDescription}/>
           }
         })
       }

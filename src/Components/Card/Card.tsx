@@ -15,8 +15,9 @@ type CardProps = {
   changeNameCard:(name:string, cardId:number) => void
   removeCard:(id:number) => void
   removeComment:(id:number) => void
+  removeDescription:(id:number) => void
 }
-const Card:React.FC <CardProps> = ({card, columnName, userName, changeDescription, addComment, comments, changeComment, changeNameCard, removeCard, removeComment}) => {
+const Card:React.FC <CardProps> = ({card, columnName, userName, changeDescription, addComment, comments, changeComment, changeNameCard, removeCard, removeComment, removeDescription}) => {
 
   const [isPopupVisible, setIsPopupVisible] = useState(false)
   
@@ -29,24 +30,23 @@ const Card:React.FC <CardProps> = ({card, columnName, userName, changeDescriptio
   return (
     <>
      {isPopupVisible ? 
-      <CardPopup visible = {setIsPopupVisible} userName = {userName} name = {card.name} close = {() => setIsPopupVisible(false)} 
-      columnName={columnName} changeName={changeNameCard} card ={card} changeDescription = {changeDescription} comments = {comments} 
-      addComment = {addComment} changeComment={changeComment} removeComment={removeComment}/>
+        <CardPopup visible = {setIsPopupVisible} userName = {userName} name = {card.name} close = {() => setIsPopupVisible(false)} 
+        columnName={columnName} changeName={changeNameCard} card ={card} changeDescription = {changeDescription} comments = {comments} addComment = {addComment} changeComment={changeComment} removeComment={removeComment} removeDescription = {removeDescription}/>
       :
-      <Wrapper onClick={() => setIsPopupVisible(true)}>
-        <Container>
-          <p>{card.name}</p>
-          <ImgContainer onClick={() => removeCard(card.id)}>
-           <Img src="/assets/delete.svg"/>
-          </ImgContainer>
-        </Container>
-        <Container2>
-          <ImgContainer>
-            <Img src="/assets/comment.svg"/>
-          </ImgContainer>
-          <p>{countComments}</p>
-        </Container2>
-      </Wrapper>
+        <Wrapper onClick={() => setIsPopupVisible(true)}>
+          <Container>
+            <p>{card.name}</p>
+            <ImgContainer onClick={() => removeCard(card.id)}>
+            <Img src="/assets/delete.svg"/>
+            </ImgContainer>
+          </Container>
+          <Container2>
+            <ImgContainer>
+              <Img src="/assets/comment.svg"/>
+            </ImgContainer>
+            <p>{countComments}</p>
+          </Container2>
+        </Wrapper>
       }
     </>
   )

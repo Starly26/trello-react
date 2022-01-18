@@ -17,11 +17,11 @@ const TextAreaField:React.FC <TextAreaProps>= ({placeName, btnName, close, chang
     <div>
       <Textarea value={name} onChange={(evt) => setName(evt.target.value)} placeholder={placeName}/>
       <Div>
-      <Button onClick={() => change(name, id)} disabled={!name.length} >{btnName}</Button>
-      { close ?
-        <ImgContainer onClick={close}><img src="/assets/close.svg" alt="close"/></ImgContainer>
-        : <></>
-      }
+        <Button onClick={() => change(name, id)} disabled={!name.length} >{btnName}</Button>
+        { close ?
+          <ImgContainer onClick={close}><img src="/assets/close.svg" alt="close"/></ImgContainer>
+          : <></>
+        }
       </Div>
     </div>
   )

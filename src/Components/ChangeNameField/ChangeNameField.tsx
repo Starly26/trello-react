@@ -12,8 +12,9 @@ const ChangeNameField:React.FC <ChangeNameProps> = ({name, setName, id}) => {
     <div>
     { 
     isVisible ?
-    <input value={name} onChange={event => setName(event.target.value, id)} autoFocus={true} onBlur={() => setIsVisible(false)}/>
-    :<h3 onClick={ () => setIsVisible(true)}>{name}</h3>
+      <input value={name} onChange={event => setName(event.target.value, id)} autoFocus={true} onBlur={() => setIsVisible(false)}/>
+    :
+      <h3 onClick={ () => setIsVisible(true)}>{name}</h3>
     }
     </div>
   )

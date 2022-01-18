@@ -6,14 +6,14 @@ import NamedPopup from './Components/Popup/NamedPopup';
 function App() {
 
   const [name, setName] = useState('')
-  // Поменять состояние для вызова модалки
   const [isPopupVisible, setIsPopupVisible] = useState(true)
   
   useEffect(() => {
-    const savedName = localStorage.getItem('authorName') || ''
+    const savedName = localStorage.getItem('authorName');
+    if (savedName) {
     setIsPopupVisible(false)
-    setName(savedName)
-  })
+    setName(savedName)}
+  }, [])
 
   return (
     <>
@@ -22,7 +22,7 @@ function App() {
         :<Dashboard userName={name}/>
     }
     </>
-  );
-}
+    )
+  }
 
 export default App;
