@@ -8,7 +8,7 @@ export type CardType = {
   id: number
   name: string
   description: string
-  comments:string[]
+  commentsIds:number[]
 }
 
 export type CommentType = {
