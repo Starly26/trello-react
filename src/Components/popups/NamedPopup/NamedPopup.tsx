@@ -1,30 +1,42 @@
 import React from "react";
+import { Field, Form, FormProps } from "react-final-form";
 import styled from "styled-components";
+import { LocalStorageService } from "../../../services";
+import { addAuthorName } from "../../../store/author/authorSlice";
+import { useAppDispatch} from "../../../store/hooks";
 
 type PopupProps = {
   saveName: () => void;
-  name: string;
-  setName: (value: string) => void;
 };
 
-const NamedPopup: React.FC<PopupProps> = ({ name, saveName, setName }) => {
-  const save = () => {
-    localStorage.setItem("authorName", name);
-    setName(name);
+const NamedPopup: React.FC<PopupProps> = ({ saveName }) => {
+  const dispath = useAppDispatch()
+
+  const save = (values: FormProps<{ name: string }>) => {
+    LocalStorageService.setAuthorName(values.name);
     saveName();
+    dispath(addAuthorName((values.name)))
   };
 
   return (
     <Modal>
       <Container>
-        <input
-          value={name}
-          onChange={(evt) => setName(evt.target.value)}
-          placeholder="Введите Ваше имя"
+        <Form
+          onSubmit={save}
+          render={({ handleSubmit, submitting, pristine, values }) => (
+            <form onSubmit={handleSubmit}>
+              <Field
+                name="name"
+                component="input"
+                type="text"
+                placeholder="Введите Ваше имя"
+              />
+              <Button type="submit" disabled={submitting || pristine}>
+                Продолжить
+              </Button>
+            </form>
+          )}
         />
-        <Button disabled={!name.length} onClick={save}>
-          Продолжить
-        </Button>
       </Container>
     </Modal>
   );

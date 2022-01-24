@@ -1,22 +1,24 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { CommentType } from "../../../types";
-import TextAreaField from "../TextAreaField/TextAreaField";
+import { changeComment, removeComment } from "../../../../../../../../store/comment/commentSlice";
+import { useAppDispatch } from "../../../../../../../../store/hooks";
+import { CommentType } from "../../../../../../../../types";
+import { TextAreaField } from "../../../../../../../TextAreaField";
+
 
 type CommentProps = {
   comment: CommentType;
-  changeComment: (text: string, id: number) => void;
-  removeComment: (id: number) => void;
 };
 
 const CommentField: React.FC<CommentProps> = ({
-  comment,
-  changeComment,
-  removeComment,
+  comment
 }) => {
   const [isVisibleChangeComment, setIsVisibleChangeComment] = useState(false);
-  const change = (text: string, id: number) => {
-    changeComment(text, id);
+  const dispatch = useAppDispatch()
+
+  const onChange = (text: string, id: number) => {
+    const changedComment = {text, id,}
+    dispatch(changeComment(changedComment))
     setIsVisibleChangeComment(false);
   };
 
@@ -27,8 +29,8 @@ const CommentField: React.FC<CommentProps> = ({
           id={comment.id}
           placeName={comment.text}
           btnName="Сохранить"
-          change={change}
-          close={() => setIsVisibleChangeComment(false)}
+          onChange={onChange}
+          onClose={() => setIsVisibleChangeComment(false)}
         />
       ) : (
         <>
@@ -38,7 +40,7 @@ const CommentField: React.FC<CommentProps> = ({
           <button onClick={() => setIsVisibleChangeComment(true)}>
             Изменить
           </button>
-          <button onClick={() => removeComment(comment.id)}>Удалить</button>
+          <button onClick={() => dispatch(removeComment(comment.id))}>Удалить</button>
         </>
       )}
     </Comment>

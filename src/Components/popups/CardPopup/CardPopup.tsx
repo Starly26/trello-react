@@ -1,46 +1,50 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
+import {
+  changeDescription,
+  changeNameCard,
+  removeDescription,
+} from "../../../store/card/cardSlice";
+import { addComment } from "../../../store/comment/commentSlice";
+import { useAppDispatch, useAppSelector } from "../../../store/hooks";
 import { CardType, CommentType } from "../../../types";
-import { ChangeNameField } from "../../ui/ChangeNameField";
-import { CommentField } from "../../ui/CommentField";
-import { TextAreaField } from "../../ui/TextAreaField";
+import { ChangeNameField } from "../../ChangeNameField";
+import { CommentField } from "../../Dashboard/components/Column/components/Card/components/CommentField";
+import { TextAreaField } from "../../TextAreaField";
 
 type CardPopupProps = {
-  name: string;
   columnName: string;
-  close: any;
-  userName: string;
-  changeName: (name: string, cardId: number) => void;
+  close: () => void;
   card: CardType;
   visible: (value: boolean) => void;
-  changeDescription: (text: string, cardId: number) => void;
-  addComment: (text: string, cardId: number) => void;
-  comments: CommentType[];
-  changeComment: (text: string, id: number) => void;
-  removeComment: (id: number) => void;
-  removeDescription: (id: number) => void;
 };
 
 const CardPopup: React.FC<CardPopupProps> = ({
-  name,
   close,
   columnName,
-  userName,
   card,
   visible,
-  changeDescription,
-  comments,
-  addComment,
-  changeComment,
-  changeName,
-  removeComment,
-  removeDescription,
 }) => {
-  const [isVisibleDesc, setIsVisibleDesc] = useState(false);
+  const userName = useAppSelector((state) => state.author);
+  const comments = useAppSelector((state) => state.comment.comments);
 
-  const closeDescription = (text: string, cardId: number) => {
-    changeDescription(text, cardId);
+  const [isVisibleDesc, setIsVisibleDesc] = useState(false);
+  const dispatch = useAppDispatch();
+
+  const onCloseDescription = (text: string, cardId: number) => {
+    const newDescription = { text, cardId };
+    dispatch(changeDescription(newDescription));
     setIsVisibleDesc(false);
+  };
+
+  const onChangeName = (name: string, id: number) => {
+    const newCardName = { name, id };
+    dispatch(changeNameCard(newCardName));
+  };
+
+  const addNewComment = (text: string, cardId: number) => {
+    const comment: CommentType = { id: Date.now(), cardId, text };
+    dispatch(addComment(comment));
   };
 
   useEffect(() => {
@@ -58,7 +62,11 @@ const CardPopup: React.FC<CardPopupProps> = ({
     <Container>
       <Wrapper>
         <Wrapper1>
-          <ChangeNameField name={name} setName={changeName} id={card.id} />
+          <ChangeNameField
+            name={card.name}
+            handleName={onChangeName}
+            id={card.id}
+          />
           <ImgWrapper onClick={close}>
             <img src="/assets/close.svg" alt="" />
           </ImgWrapper>
@@ -71,15 +79,17 @@ const CardPopup: React.FC<CardPopupProps> = ({
               id={card.id}
               placeName="Добавить более подробное описание"
               btnName="Сохранить"
-              close={() => setIsVisibleDesc(false)}
-              change={closeDescription}
+              onClose={() => setIsVisibleDesc(false)}
+              onChange={onCloseDescription}
             />
           </AreaWrapper>
         ) : (
           <div>
             <p>{card.description}</p>
             <button onClick={() => setIsVisibleDesc(true)}>Изменить</button>
-            <button onClick={() => removeDescription(card.id)}>Удалить</button>
+            <button onClick={() => dispatch(removeDescription(card.id))}>
+              Удалить
+            </button>
           </div>
         )}
         <p>Автор {userName}</p>
@@ -88,7 +98,7 @@ const CardPopup: React.FC<CardPopupProps> = ({
             id={card.id}
             placeName="Напишите комментарий"
             btnName="Сохранить"
-            change={addComment}
+            onChange={addNewComment}
           />
         </AreaWrapper>
         {comments.map((comment) => {
@@ -96,11 +106,7 @@ const CardPopup: React.FC<CardPopupProps> = ({
             return (
               <div key={comment.id}>
                 <p>{userName}</p>
-                <CommentField
-                  comment={comment}
-                  changeComment={changeComment}
-                  removeComment={removeComment}
-                />
+                <CommentField comment={comment} />
               </div>
             );
           }

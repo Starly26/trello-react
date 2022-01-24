@@ -20,6 +20,10 @@ class LocalStorageService {
   getAuthorName() {
     return localStorage.getItem("authorName")
   }
+
+  setAuthorName(name:string) {
+    return localStorage.setItem("authorName", name)
+  }
 }
 
 export default new LocalStorageService();

@@ -17,3 +17,7 @@ export type CommentType = {
   cardId: number
 }
 
+export type DescriptionType = {
+  text: string
+  cardId: number
+}

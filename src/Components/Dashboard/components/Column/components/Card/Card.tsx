@@ -1,42 +1,25 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { CardType, CommentType } from "../../../../types";
-import { CardPopup } from "../../../popups/CardPopup";
+import { removeCard } from "../../../../../../store/card/cardSlice";
+import { useAppDispatch, useAppSelector } from "../../../../../../store/hooks";
+import { CardType } from "../../../../../../types";
+import { CardPopup } from "../../../../../popups/CardPopup";
 
 type CardProps = {
   card: CardType;
   columnName: string;
-  userName: string;
-  changeDescription: (text: string, cardId: number) => void;
-  addComment: (text: string, cardId: number) => void;
-  comments: CommentType[];
-  changeComment: (text: string, id: number) => void;
-  changeNameCard: (name: string, cardId: number) => void;
-  removeCard: (id: number) => void;
-  removeComment: (id: number) => void;
-  removeDescription: (id: number) => void;
 };
-const Card: React.FC<CardProps> = ({
-  card,
-  columnName,
-  userName,
-  changeDescription,
-  addComment,
-  comments,
-  changeComment,
-  changeNameCard,
-  removeCard,
-  removeComment,
-  removeDescription,
-}) => {
+const Card: React.FC<CardProps> = ({ card, columnName }) => {
   const [isPopupVisible, setIsPopupVisible] = useState(false);
+  const dispath = useAppDispatch();
+  const comments = useAppSelector((state) => state.comment.comments);
 
   let countComments = 0;
   comments.map((comment) => {
     if (comment.cardId === card.id) {
       countComments++;
-    } 
-    return countComments
+    }
+    return countComments;
   });
 
   return (
@@ -44,24 +27,15 @@ const Card: React.FC<CardProps> = ({
       {isPopupVisible ? (
         <CardPopup
           visible={setIsPopupVisible}
-          userName={userName}
-          name={card.name}
           close={() => setIsPopupVisible(false)}
           columnName={columnName}
-          changeName={changeNameCard}
           card={card}
-          changeDescription={changeDescription}
-          comments={comments}
-          addComment={addComment}
-          changeComment={changeComment}
-          removeComment={removeComment}
-          removeDescription={removeDescription}
         />
       ) : (
         <Wrapper onClick={() => setIsPopupVisible(true)}>
           <Container>
             <p>{card.name}</p>
-            <ImgContainer onClick={() => removeCard(card.id)}>
+            <ImgContainer onClick={() => dispath(removeCard(card.id))}>
               <Img src="/assets/delete.svg" />
             </ImgContainer>
           </Container>
