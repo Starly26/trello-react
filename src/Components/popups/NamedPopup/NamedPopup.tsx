@@ -1,9 +1,9 @@
 import React from "react";
 import { Field, Form, FormProps } from "react-final-form";
 import styled from "styled-components";
-import { LocalStorageService } from "../../../services";
 import { addAuthorName } from "../../../store/author/authorSlice";
 import { useAppDispatch} from "../../../store/hooks";
+import { MyInput } from "../../ui/MyInput";
 
 type PopupProps = {
   saveName: () => void;
@@ -13,7 +13,6 @@ const NamedPopup: React.FC<PopupProps> = ({ saveName }) => {
   const dispath = useAppDispatch()
 
   const save = (values: FormProps<{ name: string }>) => {
-    LocalStorageService.setAuthorName(values.name);
     saveName();
     dispath(addAuthorName((values.name)))
   };
@@ -27,7 +26,7 @@ const NamedPopup: React.FC<PopupProps> = ({ saveName }) => {
             <form onSubmit={handleSubmit}>
               <Field
                 name="name"
-                component="input"
+                component={MyInput}
                 type="text"
                 placeholder="Введите Ваше имя"
               />

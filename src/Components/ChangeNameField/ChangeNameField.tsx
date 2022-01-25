@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Field, Form, FormProps } from "react-final-form";
+import { MyInput } from "../ui/MyInput";
 
 type ChangeNameProps = {
   name: string;
@@ -27,7 +28,7 @@ const ChangeNameField: React.FC<ChangeNameProps> = ({
             <form onSubmit={handleSubmit}>
               <Field
                 name="name"
-                component="input"
+                component={MyInput}
                 type="text"
                 defaultValue={name}
                 onBlur={() => handleSubmit()}

@@ -1,19 +1,17 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import LocalStorageService from "../../services/LocalStorageService";
 import { ColumnType } from "../../types";
 import { NamedPopup } from "../popups/NamedPopup";
 import { Column } from "./components/Column";
-import { useAppDispatch } from "../../store/hooks";
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { addAuthorName } from "../../store/author/authorSlice";
 
 const Dashboard: React.FC = () => {
   const dispath = useAppDispatch();
-
   const [isPopupVisible, setIsPopupVisible] = useState(true);
+  const savedName = useAppSelector((state) => state.author);
 
   useEffect(() => {
-    const savedName = LocalStorageService.getAuthorName();
     if (savedName) {
       setIsPopupVisible(false);
       dispath(addAuthorName(savedName));
@@ -26,23 +24,6 @@ const Dashboard: React.FC = () => {
     { id: 3, name: "Testing" },
     { id: 4, name: "Done" },
   ]);
-
-  // useEffect(() => {
-  //   const savedCards = LocalStorageService.getCards();
-  //   const savedComments = LocalStorageService.getComments();
-  //   savedCards.map((card) => {
-  //     dispath(addCard(card));
-  //   })
-  //   setComments(savedComments);
-  // }, []);
-
-  // useEffect(() => {
-  //   LocalStorageService.setCards([...cards]);
-  // }, [cards])
-
-  // useEffect(() => {
-  //   LocalStorageService.setComments([...comments])
-  // }, [comments])
 
   return (
     <>

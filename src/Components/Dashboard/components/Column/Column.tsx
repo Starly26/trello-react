@@ -2,7 +2,7 @@ import React, { useMemo, useState } from "react";
 import styled from "styled-components";
 import { addCard } from "../../../../store/card/cardSlice";
 import { useAppDispatch, useAppSelector } from "../../../../store/hooks";
-import { CardType, ColumnType, CommentType } from "../../../../types";
+import { CardType, ColumnType} from "../../../../types";
 import { ChangeNameField } from "../../../ChangeNameField";
 import { TextAreaField } from "../../../TextAreaField";
 

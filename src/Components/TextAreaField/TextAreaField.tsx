@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import { Field, Form, FormProps } from "react-final-form";
 import styled from "styled-components";
+import { MyTextArea } from "../ui/MyTextArea";
 
 type TextAreaProps = {
   placeName: string;
@@ -29,8 +30,7 @@ const TextAreaField: React.FC<TextAreaProps> = ({
           <form onSubmit={handleSubmit}>
             <Field
               name="name"
-              component="textarea"
-              // defaultValue={placeName}
+              component={MyTextArea}
               placeholder={placeName}
             />
             <Div>
