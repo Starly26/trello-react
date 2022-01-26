@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Field, Form, FormProps } from "react-final-form";
-import { MyInput } from "../ui/MyInput";
 
 type ChangeNameProps = {
   name: string;
@@ -15,7 +14,7 @@ const ChangeNameField: React.FC<ChangeNameProps> = ({
 }) => {
   const [isVisible, setIsVisible] = useState(false);
 
-  const handleSubmit = (values: FormProps<{ name: string }>) => {
+  const onSubmit = (values: FormProps<{ name: string }>) => {
     handleName(values.name, id);
     setIsVisible(false);
   };
@@ -23,16 +22,16 @@ const ChangeNameField: React.FC<ChangeNameProps> = ({
     <div>
       {isVisible ? (
         <Form
-          onSubmit={handleSubmit}
-          render={({ handleSubmit, values }) => (
+          onSubmit={onSubmit}
+          render={({ handleSubmit, values, form }) => (
             <form onSubmit={handleSubmit}>
               <Field
                 name="name"
-                component={MyInput}
                 type="text"
                 defaultValue={name}
-                onBlur={() => handleSubmit()}
                 autoFocus={true}
+                component="input"
+                onBlur={() => handleSubmit()}
               />
             </form>
           )}

@@ -1,7 +1,8 @@
 import React from "react";
 import { Field, Form, FormProps } from "react-final-form";
 import styled from "styled-components";
-import { MyTextArea } from "../ui/MyTextArea";
+import { Textarea } from "../ui/TextArea";
+
 
 type TextAreaProps = {
   placeName: string;
@@ -30,7 +31,7 @@ const TextAreaField: React.FC<TextAreaProps> = ({
           <form onSubmit={handleSubmit}>
             <Field
               name="name"
-              component={MyTextArea}
+              component={Textarea}
               placeholder={placeName}
             />
             <Div>
@@ -64,7 +65,4 @@ const Div = styled.div`
 `;
 const Button = styled.button`
   padding: 5px;
-`;
-const Textarea = styled.textarea`
-  width: 100%;
 `;

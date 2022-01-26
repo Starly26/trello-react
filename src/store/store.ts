@@ -10,9 +10,9 @@ import {
   REGISTER,
 } from "redux-persist";
 import storage from "redux-persist/lib/storage";
-import cardReduser from "./card/cardSlice";
-import commentReduser from "./comment/commentSlice";
-import authorReduser from "./author/authorSlice";
+import cardReduser from "./slices/card/cardSlice";
+import commentReduser from "./slices/comment/commentSlice";
+import authorReduser from "./slices/author/authorSlice";
 
 const rootReducer = combineReducers({
   cards: cardReduser,

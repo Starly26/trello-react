@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { CardType, DescriptionType } from "../../types";
+import { CardType, DescriptionType } from "../../../types";
 import { ChangeNameType, InitialCardState } from "./types";
 
 const initialState: InitialCardState = {

@@ -1,4 +1,4 @@
-import { CommentType } from "../../types";
+import { CommentType } from "../../../types";
 
 export type InitialCommentState = {
   comments: CommentType[];

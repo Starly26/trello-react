@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { removeCard } from "../../../../../../store/card/cardSlice";
-import { useAppDispatch, useAppSelector } from "../../../../../../store/hooks";
+import { useAppDispatch } from "../../../../../../hooks/useAppDispatch";
+import { useAppSelector } from "../../../../../../hooks/useAppSelect";
+import { removeCard } from "../../../../../../store/slices/card/cardSlice";
+
 import { CardType } from "../../../../../../types";
-import { CardPopup } from "../../../../../popups/CardPopup";
+import { CardPopup } from "./components/CardPopup";
 
 type CardProps = {
   card: CardType;

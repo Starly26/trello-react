@@ -1,7 +1,8 @@
 import React, { useMemo, useState } from "react";
 import styled from "styled-components";
-import { addCard } from "../../../../store/card/cardSlice";
-import { useAppDispatch, useAppSelector } from "../../../../store/hooks";
+import { useAppDispatch } from "../../../../hooks/useAppDispatch";
+import { useAppSelector } from "../../../../hooks/useAppSelect";
+import { addCard } from "../../../../store/slices/card/cardSlice";
 import { CardType, ColumnType} from "../../../../types";
 import { ChangeNameField } from "../../../ChangeNameField";
 import { TextAreaField } from "../../../TextAreaField";

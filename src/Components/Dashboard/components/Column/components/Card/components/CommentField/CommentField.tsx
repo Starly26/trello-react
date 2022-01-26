@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { changeComment, removeComment } from "../../../../../../../../store/comment/commentSlice";
-import { useAppDispatch } from "../../../../../../../../store/hooks";
+import { useAppDispatch } from "../../../../../../../../hooks/useAppDispatch";
+import { changeComment, removeComment } from "../../../../../../../../store/slices/comment/commentSlice";
 import { CommentType } from "../../../../../../../../types";
 import { TextAreaField } from "../../../../../../../TextAreaField";
 

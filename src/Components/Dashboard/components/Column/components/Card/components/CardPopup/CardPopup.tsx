@@ -1,16 +1,19 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
+import { useAppDispatch } from "../../../../../../../../hooks/useAppDispatch";
+import { useAppSelector } from "../../../../../../../../hooks/useAppSelect";
 import {
   changeDescription,
   changeNameCard,
   removeDescription,
-} from "../../../store/card/cardSlice";
-import { addComment } from "../../../store/comment/commentSlice";
-import { useAppDispatch, useAppSelector } from "../../../store/hooks";
-import { CardType, CommentType } from "../../../types";
-import { ChangeNameField } from "../../ChangeNameField";
-import { CommentField } from "../../Dashboard/components/Column/components/Card/components/CommentField";
-import { TextAreaField } from "../../TextAreaField";
+} from "../../../../../../../../store/slices/card/cardSlice";
+import { addComment } from "../../../../../../../../store/slices/comment/commentSlice";
+import { CardType, CommentType } from "../../../../../../../../types";
+import { ChangeNameField } from "../../../../../../../ChangeNameField";
+import { CommentField } from "../CommentField";
+import { TextAreaField } from "../../../../../../../TextAreaField";
+import { Modal } from "../../../../../../../popups/Modal";
+
 
 type CardPopupProps = {
   columnName: string;
@@ -59,9 +62,9 @@ const CardPopup: React.FC<CardPopupProps> = ({
   }, []);
 
   return (
-    <Container>
+    <Modal>
       <Wrapper>
-        <Wrapper1>
+        <WrapperNameField>
           <ChangeNameField
             name={card.name}
             handleName={onChangeName}
@@ -70,7 +73,7 @@ const CardPopup: React.FC<CardPopupProps> = ({
           <ImgWrapper onClick={close}>
             <img src="/assets/close.svg" alt="" />
           </ImgWrapper>
-        </Wrapper1>
+        </WrapperNameField>
         <p>в колонке {columnName}</p>
         <h3>Описание</h3>
         {isVisibleDesc ? (
@@ -113,20 +116,12 @@ const CardPopup: React.FC<CardPopupProps> = ({
           return <></>;
         })}
       </Wrapper>
-    </Container>
+    </Modal>
   );
 };
 
 export default CardPopup;
 
-const Container = styled.div`
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  background-color: #000000a3;
-`;
 const Wrapper = styled.div`
   width: 90%;
   background-color: white;
@@ -135,7 +130,7 @@ const Wrapper = styled.div`
   padding: 20px;
 `;
 
-const Wrapper1 = styled.div`
+const WrapperNameField = styled.div`
   display: flex;
   justify-content: space-between;
 `;

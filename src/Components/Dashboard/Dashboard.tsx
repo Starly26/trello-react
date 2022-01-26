@@ -1,10 +1,19 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { ColumnType } from "../../types";
-import { NamedPopup } from "../popups/NamedPopup";
+import { NamedPopup } from "../NamedPopup";
 import { Column } from "./components/Column";
-import { useAppDispatch, useAppSelector } from "../../store/hooks";
-import { addAuthorName } from "../../store/author/authorSlice";
+
+import { addAuthorName } from "../../store/slices/author/authorSlice";
+import { useAppSelector } from "../../hooks/useAppSelect";
+import { useAppDispatch } from "../../hooks/useAppDispatch";
+
+const columns:ColumnType[] = [
+  { id: 1, name: "TODO" },
+  { id: 2, name: "In Progress" },
+  { id: 3, name: "Testing" },
+  { id: 4, name: "Done" },
+];
 
 const Dashboard: React.FC = () => {
   const dispath = useAppDispatch();
@@ -17,13 +26,6 @@ const Dashboard: React.FC = () => {
       dispath(addAuthorName(savedName));
     }
   }, []);
-
-  const [columns, setColumns] = useState<ColumnType[]>([
-    { id: 1, name: "TODO" },
-    { id: 2, name: "In Progress" },
-    { id: 3, name: "Testing" },
-    { id: 4, name: "Done" },
-  ]);
 
   return (
     <>
