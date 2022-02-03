@@ -25,14 +25,24 @@ const ChangeNameField: React.FC<ChangeNameProps> = ({
           onSubmit={onSubmit}
           render={({ handleSubmit, values, form }) => (
             <form onSubmit={handleSubmit}>
-              <Field
-                name="name"
-                type="text"
-                defaultValue={name}
-                autoFocus={true}
-                component="input"
-                onBlur={() => handleSubmit()}
-              />
+          <div>
+            <label>First Name</label>
+            <Field
+              name="Email"
+              component="input"
+              type="text"
+              placeholder="Email"
+            />
+          </div>
+          <div>
+            <label>Last Name</label>
+            <Field
+              name="Password"
+              component="input"
+              type='password'
+              placeholder="Password"
+            />
+          </div>
             </form>
           )}
         />
